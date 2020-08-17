@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package country;
+
+service CountryInfo {
+    rpc GetCountry(PageRequest) returns (CountryList) {}
+ }
+
+message PageRequest {
+    int32 page_number = 1;
+}
+
+message CountryList {
+  message Country {
+    string name = 1;
+    string code = 2;
+    int32 population = 3;
+  }
+
+  repeated Country countries = 1;
+  int32 page_number = 2;
+  int32 last_page = 3;
+}
