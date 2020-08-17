@@ -6,200 +6,390 @@ from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
+
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
 
 
-
-
 DESCRIPTOR = _descriptor.FileDescriptor(
-  name='country.proto',
-  package='country',
-  syntax='proto3',
-  serialized_options=None,
-  create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\rcountry.proto\x12\x07\x63ountry\"\"\n\x0bPageRequest\x12\x13\n\x0bpage_number\x18\x01 \x01(\x05\"\xa1\x01\n\x0b\x43ountryList\x12/\n\tcountries\x18\x01 \x03(\x0b\x32\x1c.country.CountryList.Country\x12\x13\n\x0bpage_number\x18\x02 \x01(\x05\x12\x11\n\tlast_page\x18\x03 \x01(\x05\x1a\x39\n\x07\x43ountry\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04\x63ode\x18\x02 \x01(\t\x12\x12\n\npopulation\x18\x03 \x01(\x05\x32I\n\x0b\x43ountryInfo\x12:\n\nGetCountry\x12\x14.country.PageRequest\x1a\x14.country.CountryList\"\x00\x62\x06proto3'
+    name="country.proto",
+    package="country",
+    syntax="proto3",
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+    serialized_pb=b'\n\rcountry.proto\x12\x07\x63ountry"\x1b\n\x0b\x43ountryName\x12\x0c\n\x04name\x18\x01 \x01(\t"\x1b\n\x04Page\x12\x13\n\x0bpage_number\x18\x01 \x01(\x05"\x07\n\x05\x45mpty"9\n\x07\x43ountry\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04\x63ode\x18\x02 \x01(\t\x12\x12\n\npopulation\x18\x03 \x01(\x05"`\n\x11\x43ountryPagination\x12#\n\tcountries\x18\x01 \x03(\x0b\x32\x10.country.Country\x12\x13\n\x0bpage_number\x18\x02 \x01(\x05\x12\x11\n\tlast_page\x18\x03 \x01(\x05\x32\xc5\x01\n\x0b\x43ountryInfo\x12\x42\n\x13GetPartialCountries\x12\r.country.Page\x1a\x1a.country.CountryPagination"\x00\x12\x39\n\rSearchCountry\x12\x14.country.CountryName\x1a\x10.country.Country"\x00\x12\x37\n\x0fGetAllCountries\x12\x0e.country.Empty\x1a\x10.country.Country"\x00\x30\x01\x62\x06proto3',
 )
 
 
-
-
-_PAGEREQUEST = _descriptor.Descriptor(
-  name='PageRequest',
-  full_name='country.PageRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='page_number', full_name='country.PageRequest.page_number', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=26,
-  serialized_end=60,
+_COUNTRYNAME = _descriptor.Descriptor(
+    name="CountryName",
+    full_name="country.CountryName",
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    create_key=_descriptor._internal_create_key,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name="name",
+            full_name="country.CountryName.name",
+            index=0,
+            number=1,
+            type=9,
+            cpp_type=9,
+            label=1,
+            has_default_value=False,
+            default_value=b"".decode("utf-8"),
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+            create_key=_descriptor._internal_create_key,
+        ),
+    ],
+    extensions=[],
+    nested_types=[],
+    enum_types=[],
+    serialized_options=None,
+    is_extendable=False,
+    syntax="proto3",
+    extension_ranges=[],
+    oneofs=[],
+    serialized_start=26,
+    serialized_end=53,
 )
 
 
-_COUNTRYLIST_COUNTRY = _descriptor.Descriptor(
-  name='Country',
-  full_name='country.CountryList.Country',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='name', full_name='country.CountryList.Country.name', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='code', full_name='country.CountryList.Country.code', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='population', full_name='country.CountryList.Country.population', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=167,
-  serialized_end=224,
+_PAGE = _descriptor.Descriptor(
+    name="Page",
+    full_name="country.Page",
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    create_key=_descriptor._internal_create_key,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name="page_number",
+            full_name="country.Page.page_number",
+            index=0,
+            number=1,
+            type=5,
+            cpp_type=1,
+            label=1,
+            has_default_value=False,
+            default_value=0,
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+            create_key=_descriptor._internal_create_key,
+        ),
+    ],
+    extensions=[],
+    nested_types=[],
+    enum_types=[],
+    serialized_options=None,
+    is_extendable=False,
+    syntax="proto3",
+    extension_ranges=[],
+    oneofs=[],
+    serialized_start=55,
+    serialized_end=82,
 )
 
-_COUNTRYLIST = _descriptor.Descriptor(
-  name='CountryList',
-  full_name='country.CountryList',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='countries', full_name='country.CountryList.countries', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='page_number', full_name='country.CountryList.page_number', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='last_page', full_name='country.CountryList.last_page', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[_COUNTRYLIST_COUNTRY, ],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=63,
-  serialized_end=224,
+
+_EMPTY = _descriptor.Descriptor(
+    name="Empty",
+    full_name="country.Empty",
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    create_key=_descriptor._internal_create_key,
+    fields=[],
+    extensions=[],
+    nested_types=[],
+    enum_types=[],
+    serialized_options=None,
+    is_extendable=False,
+    syntax="proto3",
+    extension_ranges=[],
+    oneofs=[],
+    serialized_start=84,
+    serialized_end=91,
 )
 
-_COUNTRYLIST_COUNTRY.containing_type = _COUNTRYLIST
-_COUNTRYLIST.fields_by_name['countries'].message_type = _COUNTRYLIST_COUNTRY
-DESCRIPTOR.message_types_by_name['PageRequest'] = _PAGEREQUEST
-DESCRIPTOR.message_types_by_name['CountryList'] = _COUNTRYLIST
+
+_COUNTRY = _descriptor.Descriptor(
+    name="Country",
+    full_name="country.Country",
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    create_key=_descriptor._internal_create_key,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name="name",
+            full_name="country.Country.name",
+            index=0,
+            number=1,
+            type=9,
+            cpp_type=9,
+            label=1,
+            has_default_value=False,
+            default_value=b"".decode("utf-8"),
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+            create_key=_descriptor._internal_create_key,
+        ),
+        _descriptor.FieldDescriptor(
+            name="code",
+            full_name="country.Country.code",
+            index=1,
+            number=2,
+            type=9,
+            cpp_type=9,
+            label=1,
+            has_default_value=False,
+            default_value=b"".decode("utf-8"),
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+            create_key=_descriptor._internal_create_key,
+        ),
+        _descriptor.FieldDescriptor(
+            name="population",
+            full_name="country.Country.population",
+            index=2,
+            number=3,
+            type=5,
+            cpp_type=1,
+            label=1,
+            has_default_value=False,
+            default_value=0,
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+            create_key=_descriptor._internal_create_key,
+        ),
+    ],
+    extensions=[],
+    nested_types=[],
+    enum_types=[],
+    serialized_options=None,
+    is_extendable=False,
+    syntax="proto3",
+    extension_ranges=[],
+    oneofs=[],
+    serialized_start=93,
+    serialized_end=150,
+)
+
+
+_COUNTRYPAGINATION = _descriptor.Descriptor(
+    name="CountryPagination",
+    full_name="country.CountryPagination",
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    create_key=_descriptor._internal_create_key,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name="countries",
+            full_name="country.CountryPagination.countries",
+            index=0,
+            number=1,
+            type=11,
+            cpp_type=10,
+            label=3,
+            has_default_value=False,
+            default_value=[],
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+            create_key=_descriptor._internal_create_key,
+        ),
+        _descriptor.FieldDescriptor(
+            name="page_number",
+            full_name="country.CountryPagination.page_number",
+            index=1,
+            number=2,
+            type=5,
+            cpp_type=1,
+            label=1,
+            has_default_value=False,
+            default_value=0,
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+            create_key=_descriptor._internal_create_key,
+        ),
+        _descriptor.FieldDescriptor(
+            name="last_page",
+            full_name="country.CountryPagination.last_page",
+            index=2,
+            number=3,
+            type=5,
+            cpp_type=1,
+            label=1,
+            has_default_value=False,
+            default_value=0,
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+            create_key=_descriptor._internal_create_key,
+        ),
+    ],
+    extensions=[],
+    nested_types=[],
+    enum_types=[],
+    serialized_options=None,
+    is_extendable=False,
+    syntax="proto3",
+    extension_ranges=[],
+    oneofs=[],
+    serialized_start=152,
+    serialized_end=248,
+)
+
+_COUNTRYPAGINATION.fields_by_name["countries"].message_type = _COUNTRY
+DESCRIPTOR.message_types_by_name["CountryName"] = _COUNTRYNAME
+DESCRIPTOR.message_types_by_name["Page"] = _PAGE
+DESCRIPTOR.message_types_by_name["Empty"] = _EMPTY
+DESCRIPTOR.message_types_by_name["Country"] = _COUNTRY
+DESCRIPTOR.message_types_by_name["CountryPagination"] = _COUNTRYPAGINATION
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-PageRequest = _reflection.GeneratedProtocolMessageType('PageRequest', (_message.Message,), {
-  'DESCRIPTOR' : _PAGEREQUEST,
-  '__module__' : 'country_pb2'
-  # @@protoc_insertion_point(class_scope:country.PageRequest)
-  })
-_sym_db.RegisterMessage(PageRequest)
+CountryName = _reflection.GeneratedProtocolMessageType(
+    "CountryName",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _COUNTRYNAME,
+        "__module__": "country_pb2"
+        # @@protoc_insertion_point(class_scope:country.CountryName)
+    },
+)
+_sym_db.RegisterMessage(CountryName)
 
-CountryList = _reflection.GeneratedProtocolMessageType('CountryList', (_message.Message,), {
+Page = _reflection.GeneratedProtocolMessageType(
+    "Page",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _PAGE,
+        "__module__": "country_pb2"
+        # @@protoc_insertion_point(class_scope:country.Page)
+    },
+)
+_sym_db.RegisterMessage(Page)
 
-  'Country' : _reflection.GeneratedProtocolMessageType('Country', (_message.Message,), {
-    'DESCRIPTOR' : _COUNTRYLIST_COUNTRY,
-    '__module__' : 'country_pb2'
-    # @@protoc_insertion_point(class_scope:country.CountryList.Country)
-    })
-  ,
-  'DESCRIPTOR' : _COUNTRYLIST,
-  '__module__' : 'country_pb2'
-  # @@protoc_insertion_point(class_scope:country.CountryList)
-  })
-_sym_db.RegisterMessage(CountryList)
-_sym_db.RegisterMessage(CountryList.Country)
+Empty = _reflection.GeneratedProtocolMessageType(
+    "Empty",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _EMPTY,
+        "__module__": "country_pb2"
+        # @@protoc_insertion_point(class_scope:country.Empty)
+    },
+)
+_sym_db.RegisterMessage(Empty)
 
+Country = _reflection.GeneratedProtocolMessageType(
+    "Country",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _COUNTRY,
+        "__module__": "country_pb2"
+        # @@protoc_insertion_point(class_scope:country.Country)
+    },
+)
+_sym_db.RegisterMessage(Country)
+
+CountryPagination = _reflection.GeneratedProtocolMessageType(
+    "CountryPagination",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _COUNTRYPAGINATION,
+        "__module__": "country_pb2"
+        # @@protoc_insertion_point(class_scope:country.CountryPagination)
+    },
+)
+_sym_db.RegisterMessage(CountryPagination)
 
 
 _COUNTRYINFO = _descriptor.ServiceDescriptor(
-  name='CountryInfo',
-  full_name='country.CountryInfo',
-  file=DESCRIPTOR,
-  index=0,
-  serialized_options=None,
-  create_key=_descriptor._internal_create_key,
-  serialized_start=226,
-  serialized_end=299,
-  methods=[
-  _descriptor.MethodDescriptor(
-    name='GetCountry',
-    full_name='country.CountryInfo.GetCountry',
+    name="CountryInfo",
+    full_name="country.CountryInfo",
+    file=DESCRIPTOR,
     index=0,
-    containing_service=None,
-    input_type=_PAGEREQUEST,
-    output_type=_COUNTRYLIST,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
-  ),
-])
+    serialized_start=251,
+    serialized_end=448,
+    methods=[
+        _descriptor.MethodDescriptor(
+            name="GetPartialCountries",
+            full_name="country.CountryInfo.GetPartialCountries",
+            index=0,
+            containing_service=None,
+            input_type=_PAGE,
+            output_type=_COUNTRYPAGINATION,
+            serialized_options=None,
+            create_key=_descriptor._internal_create_key,
+        ),
+        _descriptor.MethodDescriptor(
+            name="SearchCountry",
+            full_name="country.CountryInfo.SearchCountry",
+            index=1,
+            containing_service=None,
+            input_type=_COUNTRYNAME,
+            output_type=_COUNTRY,
+            serialized_options=None,
+            create_key=_descriptor._internal_create_key,
+        ),
+        _descriptor.MethodDescriptor(
+            name="GetAllCountries",
+            full_name="country.CountryInfo.GetAllCountries",
+            index=2,
+            containing_service=None,
+            input_type=_EMPTY,
+            output_type=_COUNTRY,
+            serialized_options=None,
+            create_key=_descriptor._internal_create_key,
+        ),
+    ],
+)
 _sym_db.RegisterServiceDescriptor(_COUNTRYINFO)
 
-DESCRIPTOR.services_by_name['CountryInfo'] = _COUNTRYINFO
+DESCRIPTOR.services_by_name["CountryInfo"] = _COUNTRYINFO
 
 # @@protoc_insertion_point(module_scope)

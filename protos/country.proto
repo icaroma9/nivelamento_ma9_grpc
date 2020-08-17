@@ -3,20 +3,35 @@ syntax = "proto3";
 package country;
 
 service CountryInfo {
-    rpc GetCountry(PageRequest) returns (CountryList) {}
+    rpc GetPartialCountries(Page) returns (CountryPagination) {}
+
+    rpc SearchCountry(CountryName) returns (Country) {}
+
+    rpc GetAllCountries(Empty) returns (stream Country) {}
  }
 
-message PageRequest {
-    int32 page_number = 1;
+// requests
+
+message CountryName {
+  string name = 1;
 }
 
-message CountryList {
-  message Country {
-    string name = 1;
-    string code = 2;
-    int32 population = 3;
-  }
+message Page {
+  int32 page_number = 1;
+}
 
+message Empty {
+}
+
+// responses
+
+message Country {
+  string name = 1;
+  string code = 2;
+  int32 population = 3;
+}
+
+message CountryPagination {
   repeated Country countries = 1;
   int32 page_number = 2;
   int32 last_page = 3;
