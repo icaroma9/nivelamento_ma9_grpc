@@ -1,42 +1,56 @@
 import unittest
-from io import StringIO
+
 import pandas as pd
 
 import data_utils
 
-
-def load_data_utils():
-    csv_string = """
-        Name,Code,Population
-        Aruba,ABW,54211
-        Afghanistan,AFG,8996351
-        Angola,AGO,5643182
-        Albania,ALB,1608800
-        Andorra,AND,13411
-        Arab World,ARB,92490932
-    """
-    data_utils.Data.load_data_info(StringIO(csv_string))
+test_file = "/tests/test.csv"
 
 
-load_data_utils()
+class DataTestCase(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        string = """
+            Name,Code,Population
+            Aruba,ABW,54211
+            Afghanistan,AFG,8996351
+            Angola,AGO,5643182
+            Albania,ALB,1608800
+            Andorra,AND,13411
+            Arab World,ARB,92490932
+        """
+        cls.data = data_utils.Data(buffer_string=string)
 
 
-class TestLoadData(unittest.TestCase):
-    def test_load_data(self):
-        data_utils.Data.reset_data_info()
-        self.assertTrue(data_utils.Data.df.empty)
-        load_data_utils()
-        self.assertIsInstance(data_utils.Data.df, pd.DataFrame)
-        self.assertIn("name", data_utils.Data.df.columns)
-        self.assertIn("code", data_utils.Data.df.columns)
-        self.assertIn("population", data_utils.Data.df.columns)
+class TestDataInit(DataTestCase):
+    def test_load_data_buffer(self):
+        self.data.reset_data_info()
+        self.assertTrue(self.data.df.empty)
+        self.data.load_data_info()
+        self.assertIsInstance(self.data.df, pd.DataFrame)
+        self.assertIn("name", self.data.df.columns)
+        self.assertIn("code", self.data.df.columns)
+        self.assertIn("population", self.data.df.columns)
+
+    def test_load_data_csv(self):
+        data = data_utils.Data(rel_file_path=test_file)
+        self.assertFalse(data.df.empty)
+
+        data.reset_data_info()
+        self.assertTrue(data.df.empty)
+        data.load_data_info()
+        self.assertIsInstance(data.df, pd.DataFrame)
+        self.assertIn("name", data.df.columns)
+        self.assertIn("code", data.df.columns)
+        self.assertIn("population", data.df.columns)
 
 
-class TestPagination(unittest.TestCase):
+class TestPagination(DataTestCase):
     def test_pagination_out_of_bounds(self):
         max_objects = 2
         page_number = -1
-        results = data_utils.paginate_countries(page_number, max_objects)
+        results = self.data.paginate_countries(page_number, max_objects)
         self.assertFalse(results["countries"])
         self.assertIn("last_page", results)
         self.assertIn("page_number", results)
@@ -44,7 +58,7 @@ class TestPagination(unittest.TestCase):
 
         max_objects = 200
         page_number = 2
-        results = data_utils.paginate_countries(page_number, max_objects)
+        results = self.data.paginate_countries(page_number, max_objects)
         self.assertFalse(results["countries"])
         self.assertIn("last_page", results)
         self.assertEqual(results["last_page"], 1)
@@ -53,31 +67,31 @@ class TestPagination(unittest.TestCase):
 
     def test_pagination_last_page(self):
         max_objects = 2
-        results = data_utils.paginate_countries(1, max_objects)
+        results = self.data.paginate_countries(1, max_objects)
         self.assertEqual(len(results["countries"]), max_objects)
         self.assertGreaterEqual(
-            results["last_page"] * max_objects, data_utils.Data.df.shape[0]
+            results["last_page"] * max_objects, self.data.df.shape[0]
         )
 
     def test_pagination_invalid_page_number(self):
-        results = data_utils.paginate_countries(0)
+        results = self.data.paginate_countries(0)
         self.assertFalse(results["countries"])
 
     def test_pagination_different_results(self):
-        country_list_1 = data_utils.paginate_countries(1)["countries"]
-        country_list_2 = data_utils.paginate_countries(1)["countries"]
+        country_list_1 = self.data.paginate_countries(1)["countries"]
+        country_list_2 = self.data.paginate_countries(1)["countries"]
         self.assertEqual(country_list_1, country_list_2)
 
-        country_list_1 = data_utils.paginate_countries(1)["countries"]
-        country_list_2 = data_utils.paginate_countries(2)["countries"]
+        country_list_1 = self.data.paginate_countries(1)["countries"]
+        country_list_2 = self.data.paginate_countries(2)["countries"]
         self.assertNotEqual(country_list_1, country_list_2)
 
-        country_list_1 = data_utils.paginate_countries(1)["countries"]
-        country_list_2 = data_utils.paginate_countries(3)["countries"]
+        country_list_1 = self.data.paginate_countries(1)["countries"]
+        country_list_2 = self.data.paginate_countries(3)["countries"]
         self.assertNotEqual(country_list_1, country_list_2)
 
     def test_pagination_base_result_types(self):
-        results = data_utils.paginate_countries(1)
+        results = self.data.paginate_countries(1)
         self.assertTrue(results["countries"])
         self.assertIsInstance(results["page_number"], int)
         self.assertIsInstance(results["last_page"], int)
@@ -87,7 +101,7 @@ class TestPagination(unittest.TestCase):
         max_objects = 1
         names = []
         for i in range(1, 7):
-            result = data_utils.paginate_countries(i, max_objects)
+            result = self.data.paginate_countries(i, max_objects)
             page_number = result["page_number"]
             self.assertEqual(i, page_number)
             names += [country["name"] for country in result["countries"]]
@@ -95,7 +109,7 @@ class TestPagination(unittest.TestCase):
 
     def test_pagination_list_result_types(self):
         max_objects = 3
-        results = data_utils.paginate_countries(1, max_objects)
+        results = self.data.paginate_countries(1, max_objects)
         for i in range(0, max_objects):
             country_obj = results["countries"][i]
             self.assertIsInstance(country_obj, dict)
@@ -105,9 +119,9 @@ class TestPagination(unittest.TestCase):
             self.assertIsInstance(country_obj["population"], int)
 
 
-class TestSearch(unittest.TestCase):
+class TestSearch(DataTestCase):
     def test_search_success(self):
-        result = data_utils.search_country("")
+        result = self.data.search_country("")
         self.assertIsInstance(result, dict)
         self.assertIn("name", result)
         self.assertIsInstance(result["name"], str)
@@ -122,16 +136,16 @@ class TestSearch(unittest.TestCase):
             self.fail("Population field value can't converted to int")
 
     def test_search_fail(self):
-        result = data_utils.search_country("test")
+        result = self.data.search_country("test")
 
         self.assertIsInstance(result, dict)
         self.assertFalse(result)
 
 
-class TestGetAll(unittest.TestCase):
+class TestGetAll(DataTestCase):
     def test_get_all(self):
-        results = data_utils.get_all_countries()
+        results = self.data.get_all_countries()
         self.assertIsInstance(results, list)
         self.assertTrue(results)
-        self.assertEqual(len(results), data_utils.Data.df.shape[0])
-        self.assertEqual(len(results[1]), data_utils.Data.df.shape[1])
+        self.assertEqual(len(results), self.data.df.shape[0])
+        self.assertEqual(len(results[1]), self.data.df.shape[1])

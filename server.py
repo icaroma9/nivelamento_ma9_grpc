@@ -14,8 +14,11 @@ import data_utils
 
 
 class Servicer(CountryInfoServicer):
+    def __init__(self):
+        self.data = data_utils.Data()
+
     def GetPartialCountries(self, request, context):
-        results = data_utils.paginate_countries(request.page_number)
+        results = self.data.paginate_countries(request.page_number)
         response = CountryPagination(
             countries=results["countries"],
             page_number=results["page_number"],
@@ -24,12 +27,12 @@ class Servicer(CountryInfoServicer):
         return response
 
     def SearchCountry(self, request, context):
-        country = data_utils.search_country(request.name)
+        country = self.data.search_country(request.name)
         response = Country(**country)
         return response
 
     def GetAllCountries(self, request, context):
-        for country in data_utils.get_all_countries():
+        for country in self.data.get_all_countries():
             yield Country(**country)
 
 
