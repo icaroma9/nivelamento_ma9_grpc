@@ -3,11 +3,11 @@ from unittest.mock import Mock
 
 import country_pb2
 import server
-from . import dummies
+from . import data_mocks
 
-server.data_utils = dummies.data_utils
-page_dummy = dummies.page_dummy
-country_dummy = dummies.country_dummy
+server.data_utils = data_mocks.data_utils
+page_mock = data_mocks.page_mock
+country_mock = data_mocks.country_mock
 
 
 class TestCountryPagination(unittest.TestCase):
@@ -28,7 +28,7 @@ class TestCountryPagination(unittest.TestCase):
         except AttributeError:
             self.fail("Response has no countries attribute")
 
-        self.assertEqual(list(response.countries), page_dummy["countries"])
+        self.assertEqual(list(response.countries), page_mock["countries"])
 
         try:
             getattr(response, "page_number")
@@ -40,7 +40,7 @@ class TestCountryPagination(unittest.TestCase):
             getattr(response, "last_page")
         except AttributeError:
             self.fail("Response has no last_page attribute")
-        self.assertEqual(response.last_page, page_dummy["last_page"])
+        self.assertEqual(response.last_page, page_mock["last_page"])
 
     def test_search_country(self):
         request = Mock()
@@ -53,19 +53,19 @@ class TestCountryPagination(unittest.TestCase):
             getattr(response, "name")
         except AttributeError:
             self.fail("Response has no name attribute")
-        self.assertEqual(response.name, country_dummy["name"])
+        self.assertEqual(response.name, country_mock["name"])
 
         try:
             getattr(response, "code")
         except AttributeError:
             self.fail("Response has no code attribute")
-        self.assertEqual(response.code, country_dummy["code"])
+        self.assertEqual(response.code, country_mock["code"])
 
         try:
             getattr(response, "population")
         except AttributeError:
             self.fail("Response has no population attribute")
-        self.assertEqual(response.population, country_dummy["population"])
+        self.assertEqual(response.population, country_mock["population"])
 
     def test_get_all_countries(self):
         for response in self.server.GetAllCountries({}, {}):
@@ -75,19 +75,19 @@ class TestCountryPagination(unittest.TestCase):
                 getattr(response, "name")
             except AttributeError:
                 self.fail("Response has no name attribute")
-            self.assertEqual(response.name, country_dummy["name"])
+            self.assertEqual(response.name, country_mock["name"])
 
             try:
                 getattr(response, "code")
             except AttributeError:
                 self.fail("Response has no code attribute")
-            self.assertEqual(response.code, country_dummy["code"])
+            self.assertEqual(response.code, country_mock["code"])
 
             try:
                 getattr(response, "population")
             except AttributeError:
                 self.fail("Response has no population attribute")
-            self.assertEqual(response.population, country_dummy["population"])
+            self.assertEqual(response.population, country_mock["population"])
 
 
 class TestServe(unittest.TestCase):

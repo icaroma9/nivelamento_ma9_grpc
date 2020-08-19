@@ -3,12 +3,12 @@ import unittest
 import client
 import server
 
-from . import dummies
+from . import data_mocks
 
 
-server.data_utils = dummies.data_utils
-page_dummy = dummies.page_dummy
-country_dummy = dummies.country_dummy
+server.data_utils = data_mocks.data_utils
+page_mock = data_mocks.page_mock
+country_mock = data_mocks.country_mock
 
 
 class TestConnection(unittest.TestCase):
@@ -33,19 +33,19 @@ class TestConnection(unittest.TestCase):
     def test_get_partial_countries(self):
         page_number = 1
         response = self.client.get_partial_countries(page_number)
-        self.assertEqual(list(response.countries), page_dummy["countries"])
+        self.assertEqual(list(response.countries), page_mock["countries"])
         self.assertEqual(response.page_number, page_number)
-        self.assertEqual(response.last_page, page_dummy["last_page"])
+        self.assertEqual(response.last_page, page_mock["last_page"])
 
     def test_search_country(self):
         string = "brazil"
         response = self.client.search_country(string)
-        self.assertEqual(response.name, country_dummy["name"])
-        self.assertEqual(response.code, country_dummy["code"])
-        self.assertEqual(response.population, country_dummy["population"])
+        self.assertEqual(response.name, country_mock["name"])
+        self.assertEqual(response.code, country_mock["code"])
+        self.assertEqual(response.population, country_mock["population"])
 
     def test_get_all_countries(self):
         for response in self.client.get_all_countries():
-            self.assertEqual(response.name, country_dummy["name"])
-            self.assertEqual(response.code, country_dummy["code"])
-            self.assertEqual(response.population, country_dummy["population"])
+            self.assertEqual(response.name, country_mock["name"])
+            self.assertEqual(response.code, country_mock["code"])
+            self.assertEqual(response.population, country_mock["population"])
