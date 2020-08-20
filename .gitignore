@@ -156,3 +156,6 @@ dmypy.json
 .vscode/
 
 migrations
+
+.pylintrc
+.coveragerc

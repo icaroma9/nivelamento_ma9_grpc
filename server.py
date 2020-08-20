@@ -41,11 +41,11 @@ def serve(block=True):
     add_CountryInfoServicer_to_server(Servicer(), server)
     server.add_insecure_port("[::]:50051")
     server.start()
-    if block:
+    if block:  # pragma: no cover
         server.wait_for_termination()
     return server
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     logging.basicConfig(level="DEBUG")
     serve()

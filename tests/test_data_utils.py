@@ -33,6 +33,10 @@ class TestDataInit(DataTestCase):
         self.assertIn("code", self.data.df.columns)
         self.assertIn("population", self.data.df.columns)
 
+        df = self.data.df
+        self.data.load_data_info()
+        self.assertIs(self.data.df, df)
+
     def test_load_data_csv(self):
         data = data_utils.Data(rel_file_path=test_file)
         self.assertFalse(data.df.empty)
@@ -118,6 +122,14 @@ class TestPagination(DataTestCase):
             self.assertEqual(len(country_obj["code"]), 3)
             self.assertIsInstance(country_obj["population"], int)
 
+    def test_pagination_empty(self):
+        self.data.reset_data_info()
+        self.assertTrue(self.data.df.empty)
+        max_objects = 2
+        results = self.data.paginate_countries(1, max_objects)
+        self.assertEqual(len(results["countries"]), max_objects)
+        self.assertFalse(self.data.df.empty)
+
 
 class TestSearch(DataTestCase):
     def test_search_success(self):
@@ -141,6 +153,14 @@ class TestSearch(DataTestCase):
         self.assertIsInstance(result, dict)
         self.assertFalse(result)
 
+    def test_search_empty(self):
+        self.data.reset_data_info()
+        self.assertTrue(self.data.df.empty)
+        result = self.data.search_country("")
+        self.assertIsInstance(result, dict)
+        self.assertIn("name", result)
+        self.assertFalse(self.data.df.empty)
+
 
 class TestGetAll(DataTestCase):
     def test_get_all(self):
@@ -149,3 +169,11 @@ class TestGetAll(DataTestCase):
         self.assertTrue(results)
         self.assertEqual(len(results), self.data.df.shape[0])
         self.assertEqual(len(results[1]), self.data.df.shape[1])
+
+    def test_get_all_empty(self):
+        self.data.reset_data_info()
+        self.assertTrue(self.data.df.empty)
+        results = self.data.get_all_countries()
+        self.assertIsInstance(results, list)
+        self.assertTrue(results)
+        self.assertFalse(self.data.df.empty)
