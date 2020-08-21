@@ -1,5 +1,7 @@
 from unittest.mock import Mock
 
+import data_utils
+
 page_mock = {
     "countries": [],
     "page_number": 1,
@@ -11,10 +13,8 @@ country_mock = {
     "population": 0,
 }
 
-data_mock = Mock()
-data_mock.paginate_countries = lambda page: page_mock
-data_mock.search_country = lambda name: country_mock
-data_mock.get_all_countries = lambda: [country_mock]
-
-data_utils = Mock()
-data_utils.Data = lambda: data_mock
+Data_mock = Mock(spec=data_utils.Data)
+Data_mock.return_value = Data_mock
+Data_mock.paginate_countries.return_value = page_mock
+Data_mock.search_country.return_value = country_mock
+Data_mock.get_all_countries.return_value = [country_mock]
